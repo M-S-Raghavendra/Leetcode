@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+
+int f(int ind, int tar, vector<int> &num, vector<vector<int>> &dp)
+{
+    //Don't write (tar==0) base case, bcz allow it to 
+    //propagate till ind==0, to handle cases
+    //like arr=[0,0,1]  tar=1
+    //ans = 4, but with tar==0 case it gives 1
+    
+    if(tar < 0) return 0;
+    if(ind == 0) 
+    {
+        if(tar == 0 and num[0] == 0) return 2;
+        if(tar == 0 or tar == num[0]) return 1;
+        return 0;
+    }
+    
+    if(dp[ind][tar] != -1) return dp[ind][tar];
+    
+    int nottake = f(ind-1,tar,num,dp);
+    int take = f(ind-1,tar-num[ind],num,dp);
+    return dp[ind][tar] = (nottake + take);
+}
+
+int findWays(vector<int> &num, int tar)
+{
+    int n = num.size();
+    vector<vector<int>> dp(n,vector<int>(tar+1,-1));
+    return f(n-1,tar,num,dp);
+}
