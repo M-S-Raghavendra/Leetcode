@@ -28,3 +28,5 @@ int findWays(vector<int> &num, int tar)
     vector<vector<int>> dp(n,vector<int>(tar+1,-1));
     return f(n-1,tar,num,dp);
 }
+
+https://www.codingninjas.com/codestudio/problems/number-of-subsets_3952532?source=youtube&campaign=striver_dp_videos&utm_source=youtube&utm_medium=affiliate&utm_campaign=striver_dp_videos
