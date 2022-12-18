@@ -11,22 +11,21 @@ class Solution
     int knapSack(int W, int wt[], int val[], int n) 
     {
         // vector<vector<int>> dp(n,vector<int>(W+1,0));
-        vector<int> prev(W+1,0), cur(W+1,0);
+        vector<int> prev(W+1,0);    //Single array optimization
         
         for(int i=wt[0];i<=W;i++)
             prev[i] = val[0];
             
         for(int ind = 1;ind<n;ind++)
         {
-            for(int cap=0;cap<=W;cap++)
+            for(int cap=W;cap>=0;cap--)
             {
                 int nottake = 0 +  prev[cap];
                 int take = INT_MIN;
                 if(wt[ind] <= cap)
                     take = val[ind] + prev[cap-wt[ind]];
-                cur[cap] = max(nottake,take);
+                prev[cap] = max(nottake,take);
             }
-            prev = cur;
         }
         
         return prev[W];
