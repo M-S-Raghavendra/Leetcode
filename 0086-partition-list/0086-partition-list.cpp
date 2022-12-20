@@ -15,36 +15,32 @@ public:
             return head;
         
         ListNode* lh, *lt, *gh, *gt;
-        lh = lt = gh = gt = NULL;
+        lh = lt = new ListNode(0);
+        gh = gt = new ListNode(0);
         
         for(ListNode* cur=head;cur!=NULL;cur=cur->next)
         {
             if(cur->val < x)
             {
-                if(lh == NULL)
-                    lh = lt = cur;
-                else
-                {
-                    lt->next = cur;
-                    lt = lt->next;
-                }
+                lt->next = cur;
+                lt = lt->next;
             }
             else {
-                if(gh == NULL)
-                    gh = gt = cur;
-                else {
-                    gt->next = cur;
-                    gt = gt->next;
-                }
+                gt->next = cur;
+                gt = gt->next;
             }
         }
         
-        if(lh == NULL) return gh;
-        if(gh == NULL) return lh;
+        // if(lh == NULL) return gh;
+        // if(gh == NULL) return lh;
         
         gt->next = NULL;
-        lt->next = gh;
         
-        return lh;
+        if(lt != NULL)
+            lt->next = gh->next;
+        else
+            lh->next = gh->next;
+        
+        return lh->next;
     }
 };
