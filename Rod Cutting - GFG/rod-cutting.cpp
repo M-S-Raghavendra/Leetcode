@@ -13,7 +13,7 @@ class Solution{
     int cutRod(int price[], int n) {
         // vector<vector<int>> dp(n,vector<int>(n+1,0));
         // return f(n-1,n,price,dp);
-        vector<int> prev(n+1,0), cur(n+1,0);
+        vector<int> prev(n+1,0);
         
         for(int L=0;L<=n;L++)
             if(1 <= L) prev[L] = (L/1)*price[0];
@@ -25,10 +25,9 @@ class Solution{
                 int nottake = prev[L];
                 int take = INT_MIN;
                 if(ind+1 <= L)
-                    take = price[ind] + cur[L-(ind+1)];
-                cur[L] = max(nottake,take);
+                    take = price[ind] + prev[L-(ind+1)];
+                prev[L] = max(nottake,take);
             }
-            prev = cur;
         }
         
         return prev[n];
