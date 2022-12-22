@@ -6,9 +6,9 @@ public:
         
         while(n)
         {
-            n--;
+            n--;    //To convert 1->A to 0->A
             char c = (n%26) + 'A';
-            ans += c;
+            ans = c + ans;
             n /= 26;
             
             // int i = (columnNumber%26);
@@ -22,7 +22,7 @@ public:
             // ans += c;
             // columnNumber /= 26;
         }
-        reverse(ans.begin(),ans.end());
+        // reverse(ans.begin(),ans.end());
         return ans;
     }
 };
