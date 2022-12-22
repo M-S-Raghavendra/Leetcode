@@ -11,25 +11,27 @@ using namespace std;
 class Solution{
   public:
     int cutRod(int price[], int n) {
-        vector<vector<int>> dp(n,vector<int>(n+1,0));
+        // vector<vector<int>> dp(n,vector<int>(n+1,0));
         // return f(n-1,n,price,dp);
+        vector<int> prev(n+1,0), cur(n+1,0);
         
         for(int L=0;L<=n;L++)
-            if(1 <= L) dp[0][L] = (L/1)*price[0];
+            if(1 <= L) prev[L] = (L/1)*price[0];
             
         for(int ind = 1;ind<n;ind++)
         {
             for(int L = 0;L<=n;L++)
             {
-                int nottake = dp[ind-1][L];
+                int nottake = prev[L];
                 int take = INT_MIN;
                 if(ind+1 <= L)
-                    take = price[ind] + dp[ind][L-(ind+1)];
-                dp[ind][L] = max(nottake,take);
+                    take = price[ind] + cur[L-(ind+1)];
+                cur[L] = max(nottake,take);
             }
+            prev = cur;
         }
         
-        return dp[n-1][n];
+        return prev[n];
     }
     
     int f(int ind, int L, int price[], vector<vector<int>> &dp)
