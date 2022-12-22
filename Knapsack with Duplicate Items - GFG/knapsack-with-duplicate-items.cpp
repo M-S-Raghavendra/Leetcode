@@ -11,28 +11,31 @@ class Solution{
 public:
     int knapSack(int N, int W, int val[], int wt[])
     {
-        vector<vector<int>> dp(N,vector<int>(W+1,INT_MIN));
+        // vector<vector<int>> dp(N,vector<int>(W+1,INT_MIN));
         // return f(N-1,W,wt,val,N,dp);
+        
+        vector<int> prev(W+1,0), cur(W+1,0);
         
         for(int i=0;i<=W;i++)
         {
-            if(wt[0] <= i) dp[0][i] = (i/wt[0])*val[0];
-            else dp[0][i] = 0;
+            if(wt[0] <= i) prev[i] = (i/wt[0])*val[0];
+            else prev[i] = 0;
         }
         
         for(int ind=1;ind<N;ind++)
         {
             for(int w=0;w<=W;w++)
             {
-                int nottake = 0 + dp[ind-1][w];
+                int nottake = 0 + prev[w];
                 int take = INT_MIN;
                 if(wt[ind] <= w)
-                    take = val[ind] + dp[ind][w-wt[ind]];
-                dp[ind][w] = max(nottake,take);
+                    take = val[ind] + cur[w-wt[ind]];
+                cur[w] = max(nottake,take);
             }
+            prev = cur;
         }
         
-        return dp[N-1][W];
+        return prev[W];
     }
     
     int f(int ind, int W, int wt[], int val[], int n, vector<vector<int>> &dp)
