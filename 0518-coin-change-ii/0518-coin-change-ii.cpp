@@ -2,28 +2,31 @@ class Solution {
 public:
     int change(int amount, vector<int>& coins) {
         int n = coins.size();
-        vector<vector<int>> dp(n,vector<int>(amount+1,-1));
+        // vector<vector<int>> dp(n,vector<int>(amount+1,-1));
         // return f(n-1,amount,coins,n,dp);
+        
+        vector<int> prev(amount+1,-1), cur(amount+1,-1);
         
         for(int val=0;val<=amount;val++)
         {
-            if(val%coins[0] == 0) dp[0][val] = 1;
-            else dp[0][val] = 0;
+            if(val%coins[0] == 0) prev[val] = 1;
+            else prev[val] = 0;
         }
         
         for(int ind = 1;ind<n;ind++)    
         {
             for(int val=0;val<=amount;val++)
             {
-                int nottake = dp[ind-1][val];
+                int nottake = prev[val];
                 int take = 0;
                 if(coins[ind] <= val)
-                    take = dp[ind][val-coins[ind]];
-                dp[ind][val] = (take + nottake);
+                    take = cur[val-coins[ind]];
+                cur[val] = (take + nottake);
             }
+            prev = cur;
         }
         
-        return dp[n-1][amount];
+        return prev[amount];
     }
     
     int f(int ind, int val, vector<int> &deno, int n, vector<vector<int>> &dp)
