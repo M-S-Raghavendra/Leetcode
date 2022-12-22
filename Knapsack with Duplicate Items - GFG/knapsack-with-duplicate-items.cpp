@@ -14,7 +14,7 @@ public:
         // vector<vector<int>> dp(N,vector<int>(W+1,INT_MIN));
         // return f(N-1,W,wt,val,N,dp);
         
-        vector<int> prev(W+1,0), cur(W+1,0);
+        vector<int> prev(W+1,0);
         
         for(int i=0;i<=W;i++)
         {
@@ -29,10 +29,9 @@ public:
                 int nottake = 0 + prev[w];
                 int take = INT_MIN;
                 if(wt[ind] <= w)
-                    take = val[ind] + cur[w-wt[ind]];
-                cur[w] = max(nottake,take);
+                    take = val[ind] + prev[w-wt[ind]];
+                prev[w] = max(nottake,take);
             }
-            prev = cur;
         }
         
         return prev[W];
