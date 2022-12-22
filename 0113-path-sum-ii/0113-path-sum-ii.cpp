@@ -24,15 +24,13 @@ public:
     {
         if(root)
         {
+            path.push_back(root->val);
+            
             if(root->left == NULL and root->right == NULL and tar == root->val)
             {
-                path.push_back(root->val);
                 ans.push_back(path);
-                path.pop_back();
-                return ;
             }
                         
-            path.push_back(root->val);
             f(root->left,tar-root->val,path,ans);
             f(root->right,tar-root->val,path,ans);
             path.pop_back();
