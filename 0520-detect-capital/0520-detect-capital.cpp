@@ -11,15 +11,12 @@ public:
             if(word[i]>='A' and word[i]<='Z')
                 cap++;
         }
-        if(small==l)
-            return true;
-        if(cap==l)
+        if(small == l or cap == l)
             return true;
         
-        if(cap > 1)
-            return false;
-        if(word[0] >= 'A' and word[0] <= 'Z')
+        if(cap == 1 and (word[0] >= 'A' and word[0] <= 'Z'))
             return true;
+        
         return false;
         
 //         int t=0;
