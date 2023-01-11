@@ -26,7 +26,6 @@ public:
             if(!vis[node])
             {
                 ans++;
-                sub = false;
                 sub = dfs(n,a,hasApple,vis,ans,node);
                 if(sub)
                 {
