@@ -3,11 +3,12 @@ public:
     int numDistinct(string s, string t) {
         int n = s.size();
         int m = t.size();
-        vector<vector<double>> dp(n+1, vector<double>(m+1,0));  //if long long also doesn't work,                                                                       use "double"
-        // return f(n-1,m-1,s,t,dp);
+        // vector<vector<double>> dp(n+1, vector<double>(m+1,0));  //if long long also doesn't work,                                                                       use "double"
+        vector<double> prev(m+1,0), cur(m+1,0);
         
-        for(int i=0;i<=n;i++)
-            dp[i][0] = 1;
+//         for(int i=0;i<=n;i++)
+//             prev[i] = 1;
+        prev[0] = cur[0] = 1;
         
         for(int i=1;i<=n;i++)
         {
@@ -15,14 +16,15 @@ public:
             {
                 if(s[i-1] == t[j-1])
                 {
-                    dp[i][j] = dp[i-1][j-1] + dp[i-1][j];
+                    cur[j] = prev[j-1] + prev[j];
                 }
                 else
-                    dp[i][j] = dp[i-1][j];
+                    cur[j] = prev[j];
             }
+            prev = cur;
         }
         
-        return (int)dp[n][m];
+        return (int)prev[m];
     }
     
     int f(int i, int j, string &s, string &t, vector<vector<int>>& dp)
