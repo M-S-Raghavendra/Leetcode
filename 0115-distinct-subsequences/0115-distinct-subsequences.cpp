@@ -22,7 +22,7 @@ public:
             }
         }
         
-        return dp[n][m];
+        return (int)dp[n][m];
     }
     
     int f(int i, int j, string &s, string &t, vector<vector<int>>& dp)
