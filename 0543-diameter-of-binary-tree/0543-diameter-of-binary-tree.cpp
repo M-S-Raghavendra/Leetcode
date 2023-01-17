@@ -12,24 +12,32 @@
 class Solution {
 public:
     int diameterOfBinaryTree(TreeNode* root) {
-        return f(root);
+        int ans = 0;
+        h(root,ans);
+        return ans;
     }
     
-    int f(TreeNode* root)
+//     int f(TreeNode* root)
+//     {
+//         if(root == NULL)
+//             return 0;
+        
+//         int left = h(root->left);
+//         int right = h(root->right);
+        
+//         return max(left + right, max(f(root->left), f(root->right)));
+//     }
+    
+    int h(TreeNode* root, int &ans)
     {
         if(root == NULL)
             return 0;
+        int left = h(root->left,ans);
+        int right = h(root->right,ans);
         
-        int left = height(root->left);
-        int right = height(root->right);
+        int res = left + right;
+        ans = max(ans,res);
         
-        return max(left + right, max(f(root->left), f(root->right)));
-    }
-    
-    int height(TreeNode* root)
-    {
-        if(root == NULL)
-            return 0;
-        return 1 + max(height(root->left),height(root->right));
+        return 1 + max(left,right);
     }
 };
