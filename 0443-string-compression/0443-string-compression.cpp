@@ -1,0 +1,50 @@
+class Solution {
+public:
+    int compress(vector<char>& chars) {
+        int i = 0, j = 0;
+        int n = chars.size();
+        int sz = 0;
+        
+        while(i<n and j<n)
+        {
+            int start = j;
+            while(j<n and chars[j] == chars[start])
+                j++;
+            int cnt = j-start;
+                     
+            if(cnt == 1)
+            {
+                chars[i] = chars[start];
+                i++;
+            }
+            else {
+                if(cnt < 10)
+                {
+                    chars[i] = chars[start];
+                    chars[i+1] = (char)(cnt + '0');
+                    i += 2;
+                }
+                else {
+                    vector<char> count;
+                    numToChar(cnt,count);
+                    chars[i] = chars[start];
+                    for(int k=0;k<count.size();k++)
+                    {
+                        chars[i+1+k] = count[k];
+                    }
+                    
+                    i = i+1+count.size();
+                }
+            }
+        }
+        
+        return i;
+    }
+    
+    void numToChar(int cnt, vector<char>& c)
+    {
+        string s = to_string(cnt);
+        for(auto x:s)
+            c.push_back(x);
+    }
+};
