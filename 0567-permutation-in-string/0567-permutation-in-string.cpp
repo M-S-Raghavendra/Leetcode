@@ -1,5 +1,18 @@
 class Solution {
 public:
+    bool check(unordered_map<char,int> &m1, unordered_map<char,int> &m2)
+    {
+        if(m1.size() != m2.size())
+            return false;
+        
+        for(auto x:m1)
+        {
+            if(x.second != m2[x.first])
+                return false;
+        }
+        return true;
+        }
+    
     bool solve(string &s1, string &s2)
     {
         //Approach 1
@@ -16,41 +29,22 @@ public:
 //         return false;
         
         //Approach 2
-        unordered_map<char,int> m1;
+        unordered_map<char,int> m1,m2;
         for(auto x:s1)
             m1[x]++;
+        for(int i=0;i<s1.length();i++)
+            m2[s2[i]]++;
+        if(check(m1,m2)) return true;
         
-        for(int i=0;i<=s2.length()-s1.length();i++)
-        {
-            bool notSub = false;
-            unordered_map<char,int> m2;
-            
-            for(int j=0;j<s1.length();j++)
+        int n = s1.length();
+        for(int i=n;i<=s2.length();i++)
+        {            
+            m2[s2[i]]++;
+            if(--m2[s2[i-n]] == 0)
             {
-                if(m1.find(s2[i+j]) == m1.end())
-                {
-                    notSub = true;
-                    break;
-                }
-                m2[s2[i+j]]++;
+                m2.erase(s2[i-n]);
             }
-    
-            if(notSub) continue;
-            
-            if(m1.size() != m2.size())
-                continue;
-            
-            for(auto x:m1)
-            {
-                if(x.second != m2[x.first])
-                {
-                    notSub = true;
-                    break;
-                }
-            }
-            
-            if(notSub == false)
-                return true;
+            if(check(m1,m2)) return true;
         }
         
         return false;
