@@ -27,8 +27,15 @@ public:
             
             for(int j=0;j<s1.length();j++)
             {
+                if(m1.find(s2[i+j]) == m1.end())
+                {
+                    notSub = true;
+                    break;
+                }
                 m2[s2[i+j]]++;
             }
+    
+            if(notSub) continue;
             
             if(m1.size() != m2.size())
                 continue;
