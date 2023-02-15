@@ -5,6 +5,31 @@ public:
         int m = s.length();
         vector<vector<int>> dp(n,vector<int>(m,-1));
         
+//         dp[0][0] = true;
+        
+//         for(int i=1;i<=n;i++)
+//         {
+//             dp[i][0] = dp[i-1][0] and (s[i-1] == '*');
+//         }
+        
+//         for(int i=1;i<=n;i++)
+//         {
+//             for(int j=1;j<=m;j++)
+//             {
+//                 if(p[i] == '?')
+//                     dp[i][j] = dp[i-1][j-1];
+//                 else if(p[i] == '*')
+//                 {
+                    
+//                 }
+//                 else {
+//                     if(p[i] == s[j])
+//                         return dp[i][j] = f(i-1,j-1,p,s,dp);
+//                     else return dp[i][j] = false;
+//                 }   
+//                     }
+//         }
+        
         return f(n-1,m-1,p,s,dp);
     }
     
@@ -21,21 +46,12 @@ public:
         
         if(dp[i][j] != -1) return dp[i][j];
         
-        if(p[i] == '?')
+        if(p[i] == s[j] or p[i] == '?')
             return dp[i][j] = f(i-1,j-1,p,s,dp);
         else if(p[i] == '*')
         {
-            bool temp = false;
-            for(int ind=0;ind<=j+1;ind++)
-            {
-                temp |= f(i-1,j-ind,p,s,dp);
-            }
-            return dp[i][j] = temp;
+            return dp[i][j] = f(i-1,j,p,s,dp) or f(i,j-1,p,s,dp);
         }
-        else {
-            if(p[i] == s[j])
-                return dp[i][j] = f(i-1,j-1,p,s,dp);
-            else return dp[i][j] = false;
-        }
+        else return dp[i][j] = false;
     }
 };
