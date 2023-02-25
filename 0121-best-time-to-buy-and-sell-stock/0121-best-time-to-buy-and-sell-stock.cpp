@@ -13,5 +13,18 @@ public:
         }
         
         return profit;
+        
+//         int n=prices.size();
+//         int pmn=prices[0];
+//         int ans=0;
+//         if(n==1) return 0;
+//         for(int i=1;i<n;i++)
+//         {
+//             if(prices[i]<pmn)
+//                 pmn=prices[i];
+//             else
+//                 ans=max(ans,prices[i]-pmn);
+//         }
+//         return ans;
     }
 };
