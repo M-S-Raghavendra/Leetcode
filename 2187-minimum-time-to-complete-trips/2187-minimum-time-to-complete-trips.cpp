@@ -16,7 +16,7 @@ public:
         if(n == 1)
             return (long long)time[0]*totalTrips;
         
-        sort(time.begin(),time.end());
+        // sort(time.begin(),time.end());       Not required
         long long s = 0, e = 1e12;
         long long ans = -1;
         
