@@ -15,7 +15,6 @@ public:
         unordered_map<int,TreeNode*> m1;
         unordered_map<TreeNode*,TreeNode*> m2;
         TreeNode* root = NULL;
-        stack<TreeNode*> stk;
         
         for(int i=0;i<descriptions.size();i++)
         {
@@ -40,12 +39,6 @@ public:
 
             m2.insert({d,u});
             
-            if(m2.find(u) == m2.end())
-            {
-                root = u;
-                stk.push(u);
-            }
-            
             if(isleft)
             {
                 u->left = d;
@@ -56,10 +49,10 @@ public:
             }
         }
         
-        while(!stk.empty() and m2.find(stk.top()) != m2.end())
+        for(auto x:descriptions)
         {
-            stk.pop();
-            root = stk.top();
+            if(m2.find(m1[x[0]]) == m2.end())
+                return m1[x[0]];
         }
         
         return root;
