@@ -13,24 +13,17 @@ public:
         
         dfs(1,a,vis,l);
         
-        sort(roads.begin(),roads.end(),comp);
-        int ans = 0;
+        int ans = INT_MAX;
         
         for(auto x:roads)
         {
-            if(l.find(x[0]) != l.end())
+            if(l.find(x[0]) != l.end() and ans > x[2])
             {
                 ans = x[2];
-                break;
             }
         }
         
         return ans;
-    }
-    
-    static bool comp(vector<int> &a, vector<int> &b)
-    {
-        return a[2] < b[2];
     }
     
     void dfs(int node, vector<vector<pair<int,int>>> &a, vector<bool> &vis, unordered_set<int> &l)
