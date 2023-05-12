@@ -14,12 +14,25 @@ private:
     }
     
 public:
-    long long mostPoints(vector<vector<int>>& questions) {
+    long long mostPoints(vector<vector<int>>& q) {
         long long ans;
-        vector<long long> dp(questions.size(),-1);
+        int n = q.size();
+        vector<long long> dp(n,-1);
         
-        ans = f(0,questions,dp);
+        // ans = f(0,q,dp);
         
-        return ans;
+        dp[n-1] = q[n-1][0];
+        
+        for(int i=n-2;i>=0;i--)
+        {
+            long long notpick = 0, pick = q[i][0];
+            notpick = 0 + dp[i+1];
+            if(i+q[i][1]+1 < n)
+                pick += dp[i+q[i][1]+1];
+
+            dp[i] = max(notpick,pick);
+        }
+        
+        return dp[0];
     }
 };
