@@ -20,18 +20,17 @@ private:
 public:
     int countGoodStrings(int low, int high, int zero, int one) {
         vector<long long> dp(high+1,-1);
-        f(high,zero,one,dp);
+        // f(high,zero,one,dp);
         
         long long ans = 0;
         for(long long i=low;i<=high;i++)
         {
-            if(dp[i] != -1)
-                ans = (ans + dp[i]) % N;
-            cout<<dp[i]<<endl;
+            ans = ((ans%N) + (f(i,zero,one,dp)%N)) % N;
+            // cout<<dp[i]<<endl;
         }
         
-        if(low==50000 and high==100000 and zero==2 and one==3)
-            return 797774039;
+//         if(low==50000 and high==100000 and zero==2 and one==3)
+//             return 797774039;
         
         return ans%N;
     }
