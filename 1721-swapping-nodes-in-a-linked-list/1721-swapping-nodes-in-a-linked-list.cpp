@@ -14,11 +14,13 @@ public:
         ListNode* left = head, *right = head;
         ListNode* front = head;
         
-        for(int i=0;i<k;i++)
-            front = front->next;
-        
         for(int i=0;i<k-1;i++)
+        {
             left = left->next;
+            front = front->next;
+        }
+        front = front->next;
+        
         while(front)
         {
             front = front->next;
