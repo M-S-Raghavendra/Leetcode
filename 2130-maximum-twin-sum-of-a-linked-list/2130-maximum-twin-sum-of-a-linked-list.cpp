@@ -9,31 +9,69 @@
  * };
  */
 class Solution {
-public:
-    int pairSum(ListNode* head) {
-        stack<int> s;
-        int cnt = 0;
+private:
+    ListNode* reverseList(ListNode* h)
+    {
+        ListNode* prev = NULL, *next;
         
-        for(ListNode* cur=head;cur!=NULL;cur=cur->next)
-            cnt++;
-        int temp = cnt/2;
-        ListNode* cur = head;
-        while(temp--)
+        while(h)
         {
-            s.push(cur->val);
-            cur = cur->next;
+            next = h->next;
+            h->next = prev;
+            prev = h;
+            h = next;
         }
         
+        return prev;
+    }
+    
+public:
+    int pairSum(ListNode* head) {
+        ListNode* slow, *fast;
+        slow = fast = head;
         int ans = 0;
         
-        while(cur)
+        while(fast!=NULL and fast->next!=NULL)
         {
-            int top = s.top();
-            s.pop();
-            ans = max(ans,top + cur->val);
+            slow = slow->next;
+            fast = fast->next->next;
+        }
+        
+        ListNode* newhead = reverseList(slow);
+        ListNode* cur = head;
+        
+        while(newhead)
+        {
+            ans = max(ans, cur->val + newhead->val);
             cur = cur->next;
+            newhead = newhead->next;
         }
         
         return ans;
+        
+//         stack<int> s;
+//         int cnt = 0;
+        
+//         for(ListNode* cur=head;cur!=NULL;cur=cur->next)
+//             cnt++;
+//         int temp = cnt/2;
+//         ListNode* cur = head;
+//         while(temp--)
+//         {
+//             s.push(cur->val);
+//             cur = cur->next;
+//         }
+        
+//         int ans = 0;
+        
+//         while(cur)
+//         {
+//             int top = s.top();
+//             s.pop();
+//             ans = max(ans,top + cur->val);
+//             cur = cur->next;
+//         }
+        
+//         return ans;
     }
 };
