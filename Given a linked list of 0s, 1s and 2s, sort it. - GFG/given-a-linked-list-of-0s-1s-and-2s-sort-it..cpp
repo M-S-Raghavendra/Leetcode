@@ -31,61 +31,46 @@ struct Node *start = NULL;
 */
 class Solution
 {
-    private:
-    Node* mergeSortedLists(Node* l1, Node* l2)
-    {
-        if(l1 == NULL) return l2;
-        if(l2 == NULL) return l1;
-        
-        Node* dummy = new Node(0);
-        Node* head, *tail, *a, *b;
-        head = tail = dummy;
-        a = l1;
-        b = l2;
-        
-        while(a and b)          
-        {
-            if(a->data <= b->data) {
-                tail->next = a;
-                a = a->next;
-                tail = tail->next;
-            }
-            else {
-                tail->next = b;
-                b = b->next;
-                tail = tail->next;
-            }
-        }
-        
-        if(a)
-            tail->next = a;
-        if(b)
-            tail->next = b;
-        
-        return head->next;
-    }
-    
     public:
     //Function to sort a linked list of 0s, 1s and 2s.
     Node* segregate(Node *head) {
         if(head == NULL or head->next == NULL)
             return head;
         
-        Node* slow, *fast, *prev;
-        slow = fast = head;
+        Node *d1 = new Node(-1);
+        Node *d2 = new Node(-1);
+        Node *d3 = new Node(-1);
+        Node* h1, *h2, *h3, *t1, *t2, *t3;
+        h1 = t1 = d1;
+        h2 = t2 = d2;
+        h3 = t3 = d3;
         
-        while(fast and fast->next)
-        {
-            prev = slow;
-            slow = slow->next;
-            fast = fast->next->next;
+        Node* cur = head;
+        
+        while(cur) {
+            if(cur->data == 0) {
+                t1->next = cur;
+                t1 = t1->next;
+            } else if(cur->data == 1) {
+                t2->next = cur;
+                t2 = t2->next;
+            } else {
+                t3->next = cur;
+                t3 = t3->next;
+            }
+            cur = cur->next;
         }
-        prev->next = NULL;
         
-        Node* l1 = segregate(head);
-        Node* l2 = segregate(slow);
+        t3->next = NULL;
         
-        return mergeSortedLists(l1,l2);
+        t2->next = h3->next;
+        t1->next = h2->next;
+            
+        if(h1->next)
+            return h1->next;
+        else if(h2->next)
+            return h2->next;
+        else return h3->next;
     }
 };
 
@@ -103,19 +88,19 @@ void printList(struct Node *Node) {
 
 /* Drier program to test above function*/
 void insert(int n1) {
-    int n, dataue, i;
+    int n, value, i;
     // scanf("%d",&n);
     n = n1;
     struct Node *temp;
     for (i = 0; i < n; i++) {
-        scanf("%d", &dataue);
+        scanf("%d", &value);
 
         if (i == 0) {
-            start = new Node(dataue);
+            start = new Node(value);
             temp = start;
             continue;
         } else {
-            temp->next = new Node(dataue);
+            temp->next = new Node(value);
             temp = temp->next;
             temp->next = NULL;
         }
