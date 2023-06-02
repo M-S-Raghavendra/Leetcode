@@ -45,7 +45,7 @@ public:
                 if(i != j)
                 {
                     double dist = getDistance(bombs[i],bombs[j]);
-                    cout<<dist<<" ";
+                    // cout<<dist<<" ";
                     if(dist <= (bombs[i][2]))
                         adj[i].push_back(j);
                 }
