@@ -31,6 +31,7 @@ public:
         }
         
         int minTime = *max_element(dist.begin()+1,dist.end());
+        // dist.begin() + 1, +1 bcz 1-based indexing of nodes
         if(minTime == 1e9)
             return -1;
         return minTime;
