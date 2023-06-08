@@ -30,13 +30,18 @@ class Solution
             
             for(auto x:adj[node])
             {
-                pq.push({x[1],x[0]});
-                // cout<<x[1]<<" "<<x[0]<<endl;
+                int adjNode = x[0];
+                int adjEdgeW = x[1];
+                
+                if(!included[adjNode])
+                {
+                    pq.push({adjEdgeW,adjNode});
+                }
             }
         }
         
         return sum;
-}
+    }
 };
 
 //{ Driver Code Starts.
