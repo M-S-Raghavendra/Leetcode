@@ -70,7 +70,7 @@ public:
             merged[index].push_back(email);
         }
         
-        for(auto &x:merged)
+        for(auto &x:merged)     // If there is '&', then only sorting works
         {
             sort(x.begin(),x.end());
         }
