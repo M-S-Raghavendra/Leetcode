@@ -12,10 +12,10 @@ public:
     int f(int i, int j, int arr[], vector<vector<int>> &dp)
     {
         if(i == j) return 0;
-        int mini = INT_MAX;
         
         if(dp[i][j] != -1) return dp[i][j];
         
+        int mini = INT_MAX;
         for(int ind=i;ind<j;ind++)
         {
             int cost = f(i,ind,arr,dp) + f(ind+1,j,arr,dp) + (arr[i-1]*arr[ind]*arr[j]);
@@ -27,8 +27,24 @@ public:
 
     int matrixMultiplication(int N, int arr[])
     {
-        vector<vector<int>> dp(N,vector<int>(N,-1));
-        return f(1,N-1,arr,dp);
+        vector<vector<int>> dp(N+1,vector<int>(N+1,0));
+        
+        for(int i=N-1;i>=0;i--)
+        {
+            for(int j=i+1;j<N;j++)
+            {
+                int mini = INT_MAX;
+                for(int ind=i;ind<j;ind++)
+                {
+                    int cost = dp[i][ind] + dp[ind+1][j] + (arr[i-1]*arr[ind]*arr[j]);
+                    mini = min(mini,cost);
+                }
+                
+                dp[i][j] = mini;
+            }
+        }
+        
+        return dp[1][N-1];
     }
 };
 
