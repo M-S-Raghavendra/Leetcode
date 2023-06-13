@@ -59,9 +59,57 @@ public:
         return dp[i][j][isTrue] =  ways;
     }
     
-    int countWays(int N, string S){
-        vector<vector<vector<int>>> dp(N, vector<vector<int>>(N,vector<int>(2,-1)));
-        return f(0,N-1,1,S,dp);
+    int countWays(int N, string s){
+        vector<vector<vector<int>>> dp(N, vector<vector<int>>(N,vector<int>(2,0)));
+        
+        for(int i=N-1;i>=0;i--)
+        {
+            for(int j=0;j<N;j++)
+            {
+                for(int isTrue=0;isTrue<=1;isTrue++)
+                {
+                    if(i > j)
+                        continue;
+                    if(i == j) {
+                        if(isTrue) dp[i][j][isTrue] = (s[i] == 'T');
+                        else dp[i][j][isTrue] = (s[i] == 'F');
+                        continue;
+                    }
+                    
+                    int ways = 0;
+                    for(int ind=i+1;ind<=j-1;ind+=2)
+                    {
+                        int lt = dp[i][ind-1][1];
+                        int lf = dp[i][ind-1][0];
+                        int rt = dp[ind+1][j][1];
+                        int rf = dp[ind+1][j][0];
+                        
+                        if(s[ind] == '&') {
+                            if(isTrue)
+                                ways = (ways + (lt*rt)%mod)%mod;
+                            else
+                                ways = (ways + (lf*rt)%mod + (lt*rf)%mod + (lf*rf)%mod)%mod;
+                        }
+                        else if(s[ind] == '|') {
+                            if(isTrue)
+                                ways = (ways + (lf*rt)%mod + (lt*rf)%mod + (lt*rt)%mod)%mod;
+                            else
+                                ways = (ways + (lf*rf)%mod)%mod;
+                        }
+                        else {
+                            if(isTrue)
+                                ways = (ways + (lt*rf)%mod + (lf*rt)%mod)%mod;
+                            else
+                                ways = (ways + (lt*rt)%mod + (lf*rf)%mod)%mod;
+                        }
+                    }
+                    
+                    dp[i][j][isTrue] =  ways;
+                }
+            }
+        }
+        
+        return dp[0][N-1][1];
     }
 };
 
