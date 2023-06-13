@@ -32,8 +32,24 @@ public:
     
     int minCut(string s) {
         int n = s.size();
-        vector<int> dp(n,-1);
+        vector<int> dp(n+1,0);
         
-        return f(0,s,dp) - 1;  // it is cutting at end also, aab --> aa|b| , so "-1"
+        for(int i=n-1;i>=0;i--)
+        {
+            int mini = INT_MAX;
+            int cuts;
+            for(int ind=i;ind<s.size();ind++)
+            {
+                if(isPalindrome(i,ind,s))
+                {
+                    cuts = 1 + dp[ind+1];
+                    mini = min(mini,cuts);
+                }
+            }
+
+            dp[i] = mini;
+        }
+
+        return dp[0] - 1;  // it is cutting at end also, aab --> aa|b| , so "-1"
     }
 };
