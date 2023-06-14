@@ -31,6 +31,7 @@ public:
         Node* node = root;
         int ans = 0;
         
+        // To get maximum XOR, each bit should be complement of that of num
         for(int i=31;i>=0;i--)
         {
             int bit = (num>>i) & 1;
