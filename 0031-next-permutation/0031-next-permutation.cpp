@@ -8,7 +8,7 @@ public:
         while(i >= 0 and nums[i] >= nums[i+1])
             i--;
         if(i < 0)
-            sort(nums.begin(),nums.end());
+            reverse(nums.begin(),nums.end());
         else {
             while(ind >= 0 and nums[ind] <= nums[i])
                 ind--;
