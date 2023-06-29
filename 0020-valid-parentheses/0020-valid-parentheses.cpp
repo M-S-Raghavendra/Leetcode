@@ -1,26 +1,33 @@
 class Solution {
 public:
+    bool isMatching(char open, char close)
+    {
+        if((open == '(' and close == ')') or (open == '{' and close == '}') or (open == '[' and close == ']'))
+            return true;
+        return false;
+    }
+    
     bool isValid(string s) {
-        stack<char> c;
+        stack<char> stack;
         
-        for(int i=0;i<s.length();i++)
+        for(auto x:s)
         {
-            int ch = s[i];
+            char ch = x;
             
-            if(ch == '(' or ch=='{' or ch == '[')
-                c.push(ch);
-            else{
-                if(c.empty())
+            if(x == '(' or x == '{' or x == '[')
+                stack.push(x);
+            else {
+                if(stack.empty())
                     return false;
-                int t = c.top();
-                
-                if((ch==')' and t == '(') or (ch=='}' and t == '{') or (ch==']' and t=='['))
-                    c.pop();
+                if(isMatching(stack.top(),x))
+                    stack.pop();
                 else
                     return false;
             }
         }
         
-        return c.empty();
+        if(stack.empty())
+            return true;
+        else return false;
     }
 };
