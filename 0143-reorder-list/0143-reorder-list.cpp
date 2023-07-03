@@ -32,6 +32,34 @@ public:
     }
     
     void reorderList(ListNode* head) {
-        f(head);
+        // Recursive
+        // f(head);
+        
+        // Iterative
+        if(head == NULL or head->next == NULL or head->next->next == NULL)
+            return ;
+        
+        ListNode *cur = head;
+        stack<ListNode*> s;
+        int cnt = 0;
+        while(cur != NULL)
+        {
+            s.push(cur);
+            cnt++;
+            cur = cur->next;
+        }
+        
+        cur = head;
+        for(int i=0;i<cnt/2;i++)
+        {
+            ListNode* tail = s.top();
+            s.pop();
+            
+            ListNode* next = cur->next;
+            cur->next = tail;
+            tail->next = next;
+            cur = next;
+        }
+        cur->next = NULL;
     }
 };
