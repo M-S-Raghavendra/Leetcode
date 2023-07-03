@@ -9,9 +9,7 @@ public:
         {
             int a = pq.top(); pq.pop();
             int b = pq.top(); pq.pop();
-            if(a < b)
-                pq.push(b-a);
-            else if(b < a)
+            if(a != b)
                 pq.push(a-b);
         }
         
