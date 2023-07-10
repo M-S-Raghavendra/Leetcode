@@ -7,7 +7,7 @@ public:
         {
             if(n % i == 0)
             {
-                cnt++;
+                cnt++;https://leetcode.com/problems/the-kth-factor-of-n/discuss/
                 if(cnt == k)
                     return i;
             }
