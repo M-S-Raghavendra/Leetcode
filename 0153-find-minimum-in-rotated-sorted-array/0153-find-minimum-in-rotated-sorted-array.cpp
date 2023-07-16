@@ -5,19 +5,20 @@ public:
         int s = 0, e = n-1;
         int ans = INT_MAX;
         
-        while(s < e)
+        while(s <= e)
         {
-            if(nums[s] < nums[e])
-                return nums[s];
-            
-            int m = (s+e)/2;
-            
-            if(nums[m] >= nums[s])
+            int m = s + (e-s)/2;
+            if(nums[s] <= nums[m])
+            {
+                ans = min(ans,nums[s]);
                 s = m+1;
-            else
-                e = m;
+            }
+            else {
+                ans = min(ans,nums[m]);
+                e = m-1;
+            }
         }
         
-        return nums[s];
+        return ans;
     }
 };
