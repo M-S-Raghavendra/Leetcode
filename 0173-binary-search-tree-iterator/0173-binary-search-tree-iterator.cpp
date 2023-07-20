@@ -11,31 +11,44 @@
  */
 class BSTIterator {
 private:
-    vector<int> nodes;
-    int n;
-    int index = -1;
+//     vector<int> nodes;
+//     int n;
+//     int index = -1;
     
-    void inorder(TreeNode* root) {
-        if(root) {
-            inorder(root->left);
-            nodes.push_back(root->val);
-            inorder(root->right);
+//     void inorder(TreeNode* root) {
+//         if(root) {
+//             inorder(root->left);
+//             nodes.push_back(root->val);
+//             inorder(root->right);
+//         }
+//     }
+    
+    stack<TreeNode*> s;
+    
+    void pushPathNodes(TreeNode* node)
+    {
+        TreeNode* cur = node;
+        while(cur)
+        {
+            s.push(cur);
+            cur = cur->left;
         }
     }
     
 public:
     BSTIterator(TreeNode* root) {
-        inorder(root);
-        n = nodes.size();
+        pushPathNodes(root);
     }
     
     int next() {
-        index++;
-        return nodes[index];
+        TreeNode* temp = s.top();
+        s.pop();
+        pushPathNodes(temp->right);
+        return temp->val;
     }
     
     bool hasNext() {
-        return index < (n - 1);
+        return !s.empty();
     }
 };
 
