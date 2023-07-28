@@ -2,9 +2,34 @@ class Solution {
 public:
     bool checkValidString(string s) {
         int n = s.size();
-        vector<vector<int>> dp(n,vector<int>(101,-1));
+        // vector<vector<int>> dp(n,vector<int>(101,-1));
         
-        return f(0,0,s,dp);
+        // Greedy
+        int closeMin = 0, closeMax = 0;
+        for(auto x:s)
+        {
+            if(x == '(') {
+                closeMin++;
+                closeMax++;
+            }
+            else if(x == ')') {
+                if(closeMin > 0)
+                    closeMin--;
+                closeMax--;
+            }
+            else {
+                if(closeMin > 0) 
+                    closeMin--;
+                closeMax++;
+            }
+            
+            if(closeMax < 0)    // too many closeing brackets
+                return false;
+        }
+        
+        return closeMin == 0;
+        
+        // return f(0,0,s,dp);
     }
     
     bool f(int i, int open, string &s, vector<vector<int>> &dp)
