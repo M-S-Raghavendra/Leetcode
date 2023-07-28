@@ -21,6 +21,6 @@ public:
         if(turn == 0)   // Alice's turn
             return dp[i][j][turn] = max(p[i] + f(i+1,j,1,p,dp), p[j] + f(i,j-1,1,p,dp));
         else
-            return dp[i][j][turn] = max(f(i+1,j,0,p,dp), f(i,j-1,0,p,dp));
+            return dp[i][j][turn] = min(f(i+1,j,0,p,dp), f(i,j-1,0,p,dp));
     }
 };
