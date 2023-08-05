@@ -65,7 +65,7 @@ public:
             i--;
             j++;
         }
-        cout<<mxComLen<<endl;
+        // cout<<mxComLen<<endl;
         
         return b.substr(mxComLen);
     }
