@@ -1,27 +1,33 @@
 class MedianFinder {
 private:
-    multiset<int> ms;
+    priority_queue<int> mxpq;
+    priority_queue<int,vector<int>,greater<int>> mnpq;
     
 public:
     MedianFinder() {
     }
     
     void addNum(int num) {
-        ms.insert(num);
+        mxpq.push(num);
+        if(mxpq.size() > mnpq.size())
+        {
+            mnpq.push(mxpq.top());
+            mxpq.pop();
+        }
+        
+        if(mnpq.size() > mxpq.size())
+        {
+            mxpq.push(mnpq.top());
+            mnpq.pop();
+        }
     }
     
     double findMedian() {
-        auto it1 = ms.begin();
-        int n = ms.size();
-        advance(it1,n/2);
-        
-        if(n % 2 == 0)
-        {
-            auto it2 = it1--;
-            return (*it1 + *it2)/2.0;
-        }
+        int n = mxpq.size() + mnpq.size();
+        if(n%2 == 1)
+            return mxpq.top();
         else
-            return *it1;
+            return (mxpq.top() + mnpq.top())/2.0;
     }
 };
 
