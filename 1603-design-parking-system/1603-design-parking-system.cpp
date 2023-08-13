@@ -1,37 +1,18 @@
 class ParkingSystem {
 private:
-    int b = 0, med = 0, sml = 0;
+    int s, m, b;
     
 public:
     ParkingSystem(int big, int medium, int small) {
-        b = big;
-        med = medium;
-        sml = small;
+        s=small;
+        b=big;
+        m=medium;
     }
     
     bool addCar(int carType) {
-        switch(carType)
-        {
-            case 1:
-                if(b) {
-                    b--;
-                    return true;
-                }
-                return false;
-            case 2:
-                if(med) {
-                    med--;
-                    return true;
-                }
-                return false;
-            case 3:
-                if(sml) {
-                    sml--;
-                    return true;
-                }
-                return false;
-        }
-        return false;
+        if(carType == 1) return b-->0;
+        else if(carType == 2) return m-- > 0;
+        else return s-->0;
     }
 };
 
