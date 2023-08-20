@@ -14,10 +14,7 @@ public:
         if(i > j)
             return {};
         if(i == j or i+1 == j)
-        {
-            // cout<<i<<" "<<j<<endl;
             return {stoi(exp.substr(i,j-i+1))};
-        }
         
         string temp = to_string(i);
         temp += '_';
