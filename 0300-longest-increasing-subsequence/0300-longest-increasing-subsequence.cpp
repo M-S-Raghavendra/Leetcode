@@ -18,7 +18,37 @@ public:
     
     int lengthOfLIS(vector<int>& nums) {
         int n = nums.size();
-        vector<vector<int>> dp(n,vector<int>(n+1,-1));
-        return f(0,-1,nums,dp);
+        // vector<vector<int>> dp(n,vector<int>(n+1,-1));
+        // return f(0,-1,nums,dp);
+        
+        // O(nlogn) Time, O(n) space, Binary search
+        vector<int> sub;
+        for(int i=0;i<n;i++)
+        {
+            if(sub.empty() or sub.back() < nums[i])
+                sub.push_back(nums[i]);
+            else {
+                int ind = lower_bound(sub.begin(),sub.end(),nums[i]) - sub.begin();
+                sub[ind] = nums[i];
+            }
+        }
+        
+        return sub.size();
+        
+        // O(n^2) Time, O(n) space
+//         vector<int> dp(n,1);
+//         int ans = 1;
+        
+//         for(int i=1;i<n;i++)
+//         {
+//             for(int j=0;j<i;j++)
+//             {
+//                 if(nums[i] > nums[j])
+//                     dp[i] = max(dp[i], dp[j] + 1);
+//                 ans = max(ans,dp[i]);
+//             }
+//         }
+        
+//         return ans;
     }
 };
