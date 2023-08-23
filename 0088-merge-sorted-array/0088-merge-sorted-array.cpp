@@ -16,16 +16,20 @@ public:
             {
                 swap(nums1[i],nums2[j]);
                 // Insertion logic of insertion sort
-                int k = j;
+                int k;
                 int key = nums2[j];
-                while(k < n-1 and nums2[k] > nums2[k+1])
+                for(k=j+1;k<n;k++)
                 {
-                    swap(nums2[k],nums2[k+1]);
-                    k++;
+                    if(nums2[k] < key)
+                        nums2[k-1] = nums2[k];
+                    else break;
                 }
-                for(auto x:nums2)
-                    cout<<x<<" ";
-                cout<<endl;
+                nums2[k-1] = key;
+                // while(k < n-1 and nums2[k] > nums2[k+1])
+                // {
+                //     swap(nums2[k],nums2[k+1]);
+                //     k++;
+                // }
             }
             i++;
         }
