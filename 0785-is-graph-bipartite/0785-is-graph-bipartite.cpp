@@ -6,33 +6,24 @@ public:
         
         for(int i=0;i<n;i++)
             if(!color[i])
-                if(!bfs(i,graph,color))
+                if(!dfs(i,graph,color,1))
                     return false;
         
         return true;
     }
     
-    int bfs(int s, vector<vector<int>>& graph, vector<int> &color)
+    bool dfs(int s, vector<vector<int>> &g, vector<int> &color, int col)
     {
-        queue<int> q;
-        q.push(s);
-        color[s] = 1;
+        color[s] = col;
         
-        while(!q.empty())
+        for(auto x:g[s])
         {
-            int i = q.front();
-            q.pop();
-            
-            for(auto x:graph[i])
-            {
-                if(!color[x])
-                {
-                    color[x] = -color[i];
-                    q.push(x);
-                }
-                else if(color[x] == color[i])
+            if(!color[x]) {
+                if(!dfs(x,g,color,-col))
                     return false;
             }
+            else if(color[x] == color[s])
+                return false;
         }
         
         return true;
