@@ -111,27 +111,28 @@ public:
         
         vector<int> lb;
         vector<int> rb;
-        Node* cur = root;
+        vector<int> ans;
         
-        while(cur) {
+        ans.push_back(root->data);
+        
+        Node* cur = root->left;
+        while(cur and (cur->left or cur->right)) {
             lb.push_back(cur->data);
-            if(cur->left == NULL and cur != root)
+            if(cur->left == NULL)
                 cur = cur->right;
             else cur = cur->left;
         }
-        if(lb.size() > 1) lb.pop_back();
         
         cur = root->right;
-        while(cur) {
+        while(cur and (cur->left or cur->right)) {
             rb.push_back(cur->data);
             if(cur->right == NULL)
                 cur = cur->left;
             else cur = cur->right;
         }
-        if(!rb.empty()) rb.pop_back();
         
-        vector<int> ans(lb);
-        
+        for(auto x:lb)
+            ans.push_back(x);
         if(root->left or root->right)
             inorder(root,ans);
         for(int i=rb.size()-1;i>=0;i--)
