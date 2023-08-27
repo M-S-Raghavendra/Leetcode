@@ -1,38 +1,37 @@
 class Solution {
 public:
-    unordered_set<int> set;
-    vector<vector<int>> dp;
+    unordered_map<long long,long long> m;
+    vector<vector<long long>> dp;
     
     bool canCross(vector<int>& stones) {
         if(stones[1] != 1) return false;
-        for(auto x:stones)
-            set.insert(x);
+        long long n = stones.size();
         
-        int n = stones.size();
+        for(long long i=0;i<n;i++)
+            m[stones[i]]= i;
         
-        dp.resize(n,vector<int>(2001,-1));
+        dp.resize(n,vector<long long>(2001,-1));
         return f(1,1,stones);
     }
     
-    bool f(int i, int ps, vector<int> &s)
+    bool f(long long i, long long ps, vector<int> &s)
     {
         if(i == s.size()-1)
             return true;
         
         if(dp[i][ps] != -1) return dp[i][ps];
         
-        if(s[i]+ps-1 > s[i] and set.count(s[i]+ps-1))
+        if((long long)s[i]+ps-1 <= INT_MAX and m.count(s[i]+ps-1) and m[s[i]+ps-1] > i)
         {
-            int ind = lower_bound(s.begin()+i+1,s.end(),s[i]+ps-1) - s.begin();
-            if(f(ind,ps-1,s)) return dp[i][ps] = true;
+            if(f(m[s[i]+ps-1],ps-1,s)) return dp[i][ps] = true;
         }
-        if(s[i]+ps > s[i] and set.count(s[i]+ps)) {
-            int ind = lower_bound(s.begin()+i+1,s.end(),s[i]+ps) - s.begin();
-            if(f(ind,ps,s)) return dp[i][ps] = true;
+        if((long long)s[i]+ps <= INT_MAX and m.count(s[i]+ps) and m[s[i]+ps] > i) 
+        {
+            if(f(m[s[i]+ps],ps,s)) return dp[i][ps] = true;
         }
-        if(s[i]+ps+1 > s[i] and set.count(s[i]+ps+1)) {
-            int ind = lower_bound(s.begin()+i+1,s.end(),s[i]+ps+1) - s.begin();
-            return dp[i][ps] = f(ind,ps+1,s);
+        if((long long)s[i]+ps+1 <= INT_MAX and m.count(s[i]+ps+1) and m[s[i]+ps+1] > i)
+        {
+            return dp[i][ps] = f(m[s[i]+ps+1],ps+1,s);
         }
         
         return dp[i][ps] = false;
