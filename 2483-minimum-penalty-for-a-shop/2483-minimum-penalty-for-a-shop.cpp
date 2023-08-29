@@ -17,7 +17,7 @@ public:
                 minPenalty = prevNo + afterYes;
                 ans = i;
             }
-            if(i == -1) continue;
+            if(i == -1) break;
             if(customers[i] == 'Y')
                 afterYes++;
             else
