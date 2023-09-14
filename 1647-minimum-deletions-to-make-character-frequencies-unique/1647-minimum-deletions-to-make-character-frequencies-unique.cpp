@@ -8,10 +8,10 @@ public:
         
         for(auto x:s)
             count[x-'a']++;
-        for(int i=0;i<26;i++)
-        {
-            cout<<(char)(i+'a')<<" "<<count[i]<<endl;
-        }
+        // for(int i=0;i<26;i++)
+        // {
+        //     cout<<(char)(i+'a')<<" "<<count[i]<<endl;
+        // }
         cout<<endl;
         for(int i=0;i<26;i++)
         {
@@ -19,8 +19,8 @@ public:
                 m[count[i]]++;
         }
         
-        for(auto x:m)
-            cout<<x.first<<" "<<x.second<<endl;
+        // for(auto x:m)
+        //     cout<<x.first<<" "<<x.second<<endl;
         
         for(int i=0;i<n;i++)
         {
